@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#131a25" />
+  <meta name="theme-color" content="#131a25" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+  <title>Wedding of Partner A &amp; Partner B</title>
+  <meta name="description" content="Join us for our wedding celebration!" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- Favicons (served from /favicon) -->
+  <link rel="icon" type="image/svg+xml" href="/favicon/wedding_bell.svg">
+  <link rel="mask-icon" href="/favicon/wedding_bell.svg" color="#a3bcd6">
+  <link rel="shortcut icon" href="/favicon/wedding_bell_favicon.ico" sizes="any">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+  <!-- PNG icons -->
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/wedding_bell_16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/wedding_bell_32x32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon/wedding_bell_48x48.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="/favicon/wedding_bell_64x64.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="/favicon/wedding_bell_128x128.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/favicon/wedding_bell_256x256.png">
+  <!-- Apple touch icons -->
+  <link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple_touch_icon_76x76.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple_touch_icon_120x120.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple_touch_icon_152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple_touch_icon_180x180.png">
+  <style>
+    :root{
+      --bg-overlay: rgba(20, 18, 18, 0.35);
+      --text: #fff;
+      --ink: #2b2a2a;
+      --accent-1: #a3bcd6;  /* dusty blue */
+      --accent-2: #d7e5f3;  /* light blue */
+      --accent-3: #f7eddc;  /* champagne/ivory */
+      --card: rgba(255,255,255,0.08);
+      --border: rgba(255,255,255,0.12);
+      --blur: saturate(140%) blur(6px);
+      --maxw: 1024px;
+  /* Fluid button sizing */
+  --btn-fs: clamp(0.9rem, 0.88rem + 0.25vw, 1rem);
+  --btn-pad-y: clamp(0.55em, 0.46em + 0.22vw, 0.75em);
+  --btn-pad-x: clamp(0.85em, 0.78em + 0.38vw, 1.15em);
+  --btn-gap: clamp(0.4rem, 0.35rem + 0.4vw, 0.8rem);
+    }
+    * { box-sizing: border-box }
+  html, body { margin:0; height:100%; background:#131a25; color:var(--text); line-height:1.65; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif; }
+  html { scroll-behavior: smooth; }
+    body::before, body::after {
+      content:""; position: fixed; width: 260px; height: 260px; z-index: 1; pointer-events:none; opacity:.55; mix-blend-mode: screen; filter: drop-shadow(0 10px 20px rgba(0,0,0,.25));
+      background: no-repeat center / contain url("data:image/svg+xml,%3Csvg width='512' height='512' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.45'%3E%3Cpath d='M60 420c80-40 120-140 70-210 60 20 120-10 140-60 40 30 50 90 10 140 70-30 120 20 110 80-16 96-144 128-330 50z'/%3E%3Cpath d='M100 440c40-10 80-50 70-100 30 10 70-10 80-40 20 20 20 50-5 80 45-15 70 15 60 45-12 45-95 60-205 15z'/%3E%3C/g%3E%3C/svg%3E");
+    }
+    body::before { top: 0; left: 0; transform: translate(-10%,-10%) rotate(0deg); }
+    body::after  { bottom: 0; right: 0; transform: translate(10%,10%) rotate(180deg); }
+  .bg { position: fixed; inset: 0; overflow:hidden; z-index:0;
+      /* Configurable golden gradient fallback using CSS variables */
+      background:
+        radial-gradient(1200px circle at 75% 10%, var(--bg-r1, rgba(234, 200, 94, 0.45)), transparent 55%),
+        radial-gradient(900px circle at 15% 85%, var(--bg-r2, rgba(255, 239, 189, 0.38)), transparent 50%),
+        /* Deep warm base to keep good contrast with white text */
+        linear-gradient(180deg, var(--bg-base-top, #2d2616), var(--bg-base-bottom, #1f1a10));
+    }
+    /* iOS: ensure background covers when toolbar collapses */
+    @supports (height: 100lvh) {
+      .ios .bg { inset: 0; min-height: 100lvh; }
+    }
+  #content { position: relative; z-index: 2; }
+    .bg-slide { position:absolute; inset:0; background-position:center; background-size:cover; opacity:0; transition: opacity 1.2s ease-in-out; will-change: opacity; }
+    .bg-slide.active { opacity: 1; }
+  .bg::after { content:""; position:absolute; inset:0; background: rgba(20,18,18,0.18); }
+  .slideshow-on .bg::after { background: rgba(20,18,18,0.35); }
+    header.hero { min-height: 100vh; min-height: 100svh; display:grid; place-items:center; padding: 5rem 1.2rem 3rem; position:relative; }
+    /* Prefer dynamic viewport units when available for accurate fold behavior */
+    @supports (height: 100dvh) {
+      header.hero { min-height: 100dvh; }
+    }
+    /* On iOS Safari prefer dynamic viewport height for exact fit; add 1px to avoid rounding gap */
+    @supports (height: 100dvh) {
+      .ios header.hero { min-height: calc(100dvh + 1px); }
+    }
+    /* Background already covers the safe area using 100lvh; no extra offset needed */
+    .hero .inner {
+      position:relative; z-index:2; width:min(92vw, 840px);
+      background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.06));
+      border:1px solid var(--border); border-radius:22px; backdrop-filter: var(--blur);
+      padding: 2.2rem 1.4rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+      text-align: center; /* Center names, date, and location */
+    }
+  .monogram {
+      display: inline-block;
+      /* center within the header (parent has text-align:center) */
+      margin: 0 0 .25rem;
+      /* remove pill/button styling */
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      background: transparent;
+      font-family: "Playfair Display", serif;
+      letter-spacing: 1px;
+      opacity:.95;
+    }
+    h1.names {
+      margin: .35rem 0 .25rem;
+      font-family: "Great Vibes", cursive;
+      /* Base size; JS will adjust precisely to fit width */
+      font-size: clamp(1.8rem, 8vw, 4.8rem);
+      font-weight: 400;
+      letter-spacing:.4px;
+      text-shadow: 0 2px 18px rgba(0,0,0,.45);
+      /* Force single line */
+      white-space: nowrap;
+      /* Measure intrinsic width accurately and center within the card */
+      display: inline-block;
+      max-width: 100%;
+      /* Avoid unexpected breaks/hyphenation */
+      overflow-wrap: normal;
+      word-break: normal;
+      hyphens: manual;
+      /* Prevent initial overflow flash before JS sizing */
+      opacity: 0; transition: opacity .18s ease;
+    }
+    .names.is-ready { opacity: 1; }
+    .tagline { font-size: clamp(1rem, 2.6vw, 1.2rem); opacity:.96 }
+  .date { display:inline-block; margin-top:.2rem; font-weight:600; letter-spacing:.8px; background: linear-gradient(90deg, var(--accent-3), var(--accent-1)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .btns { display:flex; flex-wrap:wrap; gap: var(--btn-gap); justify-content:center; margin-top:1.1rem; }
+    .btn { appearance:none; border:1px solid rgba(255,255,255,.28); color:#fff; background: transparent;
+      font-size: var(--btn-fs); line-height: 1.2;
+      padding: var(--btn-pad-y) var(--btn-pad-x);
+      border-radius:999px; cursor:pointer; text-decoration:none; font-weight:600; transition: transform .12s ease, background .2s ease, border-color .2s ease; backdrop-filter: var(--blur); text-align:center; }
+    @media (max-width: 380px) {
+      :root{
+        --btn-fs: clamp(0.85rem, 0.82rem + 0.3vw, 0.98rem);
+        --btn-pad-y: clamp(0.5em, 0.45em + 0.2vw, 0.75em);
+        --btn-pad-x: clamp(0.75em, 0.7em + 0.4vw, 1.1em);
+        --btn-gap: 0.35rem;
+      }
+      .btns { margin-top: .9rem; }
+    }
+    .btn.primary { background: transparent; color:#fff; border-color: rgba(255,255,255,.28); }
+    .btn:hover { transform: translateY(-1px); border-color: rgba(255,255,255,.6); background: rgba(255,255,255,.06); }
+    section { position:relative; padding: 3rem 1.2rem; }
+    .container { width:min(92vw, var(--maxw)); margin:0 auto; padding:1.8rem;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.06));
+      border:1px solid var(--border); border-radius:18px; backdrop-filter: var(--blur);
+      box-shadow: 0 16px 50px rgba(0,0,0,.3); }
+    h2 { font-family:"Playfair Display", serif; font-size: clamp(1.6rem, 4vw, 2.2rem); margin:.25rem 0 1rem; position:relative; }
+    h2::after { content:""; display:block; height:10px; margin-top:.45rem;
+      background: radial-gradient(circle at left, var(--accent-1), transparent 60%), radial-gradient(circle at center, var(--accent-3), transparent 55%), radial-gradient(circle at right, var(--accent-2), transparent 60%);
+      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); border-radius: 999px; }
+    .grid { display:grid; gap:1rem; grid-template-columns: repeat(12, 1fr); }
+    .grid > * { grid-column: span 12; }
+    @media (min-width: 860px) { .grid.two > * { grid-column: span 6; } .grid.three > * { grid-column: span 4; } }
+    .card { background: rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding: 1rem 1rem; }
+    .muted { opacity:.92 }
+    .row { display:grid; grid-template-columns: 1fr auto; gap:.75rem; align-items:baseline; }
+    .row + .row { margin-top:.75rem; }
+  .pill { display:inline-block; padding:.32rem .7rem; border-radius:999px; border:1px solid rgba(255,255,255,.18); font-size:.9rem; opacity:.95; color:#fff; text-decoration:none; }
+  .pill:hover { border-color: rgba(255,255,255,.5); }
+    footer { text-align:center; padding: 2.5rem 1.25rem 4.5rem; opacity:.95; }
+    a { color: var(--accent-1) }
+    .loading { text-align:center; padding:2rem; opacity:.9; }
+    .hide { display:none !important; }
+  </style>
+ </head>
+ <body>
+  <script>
+    (function(){
+      try {
+        var ua = navigator.userAgent || navigator.platform || "";
+        var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        if (isIOS) document.documentElement.classList.add('ios');
+      } catch {}
+    })();
+  </script>
+  <div class="bg" id="bg"></div>
+  <div id="loading" class="loading">
+    Loading details…
+    <div class="modal-content">
+        <h2>Welcome to Our Wedding</h2>
+        <p>This site is for our invited guests only. Please enter the password:</p>
+        <input type="password" id="password-input" placeholder="Enter password" class="password-input">
+        <button onclick="checkPassword()" class="password-button">Enter</button>
+        <p id="error-message"></p>
+    </div>
+  </div>
+   
+  <!--
+  <div id="content" class="hide">
+    <header class="hero">
+      <div class="inner">
+        <span class="monogram" id="monogram">You’re invited</span>
+        <h1 class="names" id="names">Our Wedding</h1>
+        <div class="tagline">
+          <span class="date" id="dateDisplay"></span>
+          <span> • </span>
+          <span id="locationShort"></span>
+        </div>
+        <div class="btns" id="topButtons">
+        </div>
+      </div>
+    </header>
+
+    <section id="rsvp">
+      <div class="container">
+        <h2>RSVP</h2>
+        <p class="muted" id="rsvpText">Please let us know if you can make it.</p>
+        <div class="btns" id="rsvpBtns"></div>
+      </div>
+    </section>
+
+    <section id="story">
+      <div class="container">
+        <h2>Our Story</h2>
+        <p id="storyText" class="muted"></p>
+      </div>
+    </section>
+
+    <section id="schedule">
+      <div class="container">
+        <h2>Schedule</h2>
+        <div id="scheduleGrid" class="grid"></div>
+      </div>
+    </section>
+
+    <section id="venue">
+      <div class="container">
+  <h2 id="venueTitle">Venue</h2>
+  <div id="venueGrid" class="grid"></div>
+      </div>
+    </section>
+
+    <section id="photoshare">
+      <div class="container">
+        <h2>Share Your Photos</h2>
+        <p class="muted" id="photoshareText">We’d love to see the day through your eyes. Add your pics to our shared album!</p>
+        <div class="btns" id="photoshareBtns"></div>
+      </div>
+    </section>
+
+    <section id="registry">
+      <div class="container">
+        <h2>Registry</h2>
+        <div class="btns" id="registryBtns"></div>
+      </div>
+    </section>
+
+    <section id="faqs">
+      <div class="container">
+        <h2>FAQ</h2>
+        <div id="faqList" class="grid two"></div>
+      </div>
+    </section>
+
+    <footer>
+      <div id="footerNote">Made with ♥ for family and friends.</div>
+    </footer>
+  </div>
+   -->
+
+  <script>
+    // Small DOM and network helpers
+    const $ = (id) => document.getElementById(id);
+    const setText = (id, v) => { const el = $(id); if (el) el.textContent = v ?? ""; };
+    const create = (tag, cls) => { const el = document.createElement(tag); if (cls) el.className = cls; return el; };
+    const preload = (src) => new Promise(res => { const i = new Image(); i.onload = res; i.onerror = res; i.src = src; });
+    const wait = (ms) => new Promise(r => setTimeout(r, ms));
+    const preloadWithTimeout = (src, ms = 3000) => Promise.race([preload(src), wait(ms)]);
+    // Strict image loader: resolves only when the image finishes loading, rejects on error/timeout
+    const loadImage = (src, timeoutMs = 15000) => new Promise((resolve, reject) => {
+      try {
+        const img = new Image();
+        let done = false;
+        const cleanup = () => { img.onload = null; img.onerror = null; if (t) clearTimeout(t); };
+        const ok = () => { if (done) return; done = true; cleanup(); resolve(src); };
+        const fail = (err) => { if (done) return; done = true; cleanup(); reject(err || new Error('Image failed: ' + src)); };
+        const t = timeoutMs ? setTimeout(() => fail(new Error('timeout')), timeoutMs) : null;
+        img.onload = ok; img.onerror = () => fail();
+        img.src = src;
+      } catch (e) { reject(e); }
+    });
+    const fetchJSON = async (url) => { const r = await fetch(url, { cache: 'no-store' }); if (!r.ok) throw new Error('GET ' + url + ' -> ' + r.status); return r.json(); };
+    const loadConfig = () => fetchJSON('/config/config.json');
+
+    // Wait for a specific font family to be available (best-effort)
+    async function waitForFontFamily(family, timeoutMs = 2500) {
+      try {
+        if (!document.fonts || !document.fonts.load) return;
+        const sample = `400 48px "${family}"`;
+        if (document.fonts.check(sample)) return;
+        await Promise.race([
+          document.fonts.load(sample, 'A'),
+          wait(timeoutMs)
+        ]);
+      } catch {}
+    }
+
+    // Theme colors -> CSS variables
+    function applyThemeColors(cfg) {
+      const root = document.documentElement;
+      const colors = cfg?.ui?.colors || cfg?.colors || {};
+      const pickFrom = (obj, ...keys) => {
+        for (const k of keys) { const v = obj?.[k]; if (typeof v === 'string' && v.trim()) return v.trim(); }
+      };
+      const setVar = (name, value) => { if (typeof value === 'string' && value.trim()) root.style.setProperty(name, value.trim()); };
+      // Existing color variables
+      setVar('--accent-1', pickFrom(colors, 'accent1','accent-1'));
+      setVar('--accent-2', pickFrom(colors, 'accent2','accent-2'));
+      setVar('--accent-3', pickFrom(colors, 'accent3','accent-3'));
+      setVar('--text',      pickFrom(colors, 'text'));
+      setVar('--ink',       pickFrom(colors, 'ink'));
+      setVar('--bg-overlay',pickFrom(colors, 'bgOverlay','bg-overlay'));
+      setVar('--border',    pickFrom(colors, 'border'));
+      setVar('--card',      pickFrom(colors, 'card'));
+      const maxw = pickFrom(colors, 'maxw','maxWidth'); if (maxw) root.style.setProperty('--maxw', typeof maxw === 'number' ? `${maxw}px` : maxw);
+      const blur = pickFrom(colors, 'blur'); if (blur) root.style.setProperty('--blur', blur);
+
+      // Background customization from colors or ui.background/background
+      // Accept both flat keys in colors and nested object with keys: baseTop, baseBottom, radial1, radial2
+      const bgCfg = (cfg?.ui?.background || cfg?.background || {});
+      const bgColors = { ...colors, ...bgCfg };
+      setVar('--bg-base-top',    pickFrom(bgColors, 'bgBaseTop','bg-base-top','baseTop','top'));
+      setVar('--bg-base-bottom', pickFrom(bgColors, 'bgBaseBottom','bg-base-bottom','baseBottom','bottom'));
+      setVar('--bg-r1',          pickFrom(bgColors, 'bgRadial1','bg-r1','radial1','r1'));
+      setVar('--bg-r2',          pickFrom(bgColors, 'bgRadial2','bg-r2','radial2','r2'));
+    }
+
+    // Buttons
+    function addBtn(container, label, href, primary=false) {
+      if (!href) return;
+      const a = create('a', 'btn' + (primary ? ' primary' : ''));
+      a.href = href; a.textContent = label;
+      try { const u = new URL(href, location.href); if (href[0] !== '#' && u.origin !== location.origin) { a.target = '_blank'; a.rel = 'noopener'; } } catch {}
+      container.appendChild(a);
+    }
+
+    // Fit names to single line within the card
+    function fitNames() {
+      const el = $('names'); if (!el) return;
+      const parent = el.closest('.inner') || el.parentElement || el;
+      const pad = parseFloat(getComputedStyle(parent).paddingLeft || '0') + parseFloat(getComputedStyle(parent).paddingRight || '0');
+      const limit = Math.max(0, Math.floor(parent.clientWidth - pad));
+      el.style.whiteSpace = 'nowrap';
+      let lo = 12, hi = Math.min(120, Math.round((window.innerWidth || 800) * 0.13)), best = lo;
+      for (let i = 0; i < 18; i++) { const mid = (lo + hi) / 2; el.style.fontSize = mid + 'px'; const w = el.scrollWidth; if (w <= limit) { best = mid; lo = mid; } else { hi = mid; } if (hi - lo < 0.6) break; }
+  el.style.fontSize = Math.max(12, Math.min(best, hi)) + 'px';
+    }
+    const debounce = (fn, ms=120) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
+    const fitNamesDebounced = debounce(fitNames, 120);
+  // Reveal helper
+  const revealNamesFallback = () => { const el = $('names'); if (el && !el.classList.contains('is-ready')) el.classList.add('is-ready'); };
+
+    // Config normalization and rendering
+    const normalizeVenues = (cfg) => {
+      const out = [];
+      if (Array.isArray(cfg.venues)) return cfg.venues.filter(v => v && (v.name || v.address || v.mapUrl || v.notes));
+      if (cfg.venues && typeof cfg.venues === 'object') {
+        for (const [k,v] of Object.entries(cfg.venues)) if (v && (v.name || v.address || v.mapUrl || v.notes)) out.push({ label: v.label || k, ...v });
+      }
+      if (cfg.venue && (cfg.venue.name || cfg.venue.address || cfg.venue.mapUrl || cfg.venue.notes)) out.push(cfg.venue);
+      return out;
+    };
+    const show = (el, on) => el?.classList.toggle('hide', !on);
+
+    function renderTopButtons(flags, venues) {
+      const top = $('topButtons'); if (!top) return; top.innerHTML='';
+  // Put RSVP first as a primary call-to-action
+  if (flags.rsvp) addBtn(top, 'RSVP', '#rsvp', true);
+      if (flags.story) addBtn(top, 'Story', '#story');
+      if (flags.schedule) addBtn(top, 'Schedule', '#schedule');
+      if (flags.venue) addBtn(top, venues.length > 1 ? 'Venues' : 'Venue', '#venue');
+  if (flags.photo) addBtn(top, 'Share Photos', '#photoshare');
+      if (flags.registry) addBtn(top, 'Registry', '#registry');
+      if (flags.faqs) addBtn(top, 'FAQ', '#faqs');
+    }
+
+    function renderSchedule(items) {
+      const grid = $('scheduleGrid'); if (!grid) return; grid.innerHTML = '';
+      for (const it of items) {
+        const card = create('div','card');
+        card.innerHTML = `
+          <div class="row">
+            <strong>${it.title ?? ''}</strong>
+            <span class="pill">${it.time ?? ''}</span>
+          </div>
+          <div class="muted" style="margin-top:.4rem;">${it.details ?? ''}</div>
+        `;
+        grid.appendChild(card);
+      }
+    }
+
+    function renderRSVP(cfg) {
+      const wrap = $('rsvp'); const btns = $('rsvpBtns'); if (btns) btns.innerHTML='';
+      // Support either a single object or an array of buttons
+      const rsvpCfg = cfg.rsvp || null;
+      let has = false;
+      let items = [];
+      if (Array.isArray(rsvpCfg)) {
+        items = rsvpCfg.filter(i => i && i.url && i.label);
+      } else if (rsvpCfg && typeof rsvpCfg === 'object') {
+        const single = [];
+        if (rsvpCfg.url) single.push({ label: rsvpCfg.label || rsvpCfg.cta || 'RSVP Now', url: rsvpCfg.url });
+        if (Array.isArray(rsvpCfg.buttons)) {
+          for (const b of rsvpCfg.buttons) if (b && b.url && b.label) single.push({ label: b.label, url: b.url });
+        }
+        items = single;
+        const copy = rsvpCfg.text || rsvpCfg.description || cfg.ui?.rsvpText || cfg.rsvpText;
+        if (copy) setText('rsvpText', String(copy));
+      } else {
+        // Back-compat flat keys
+        if (cfg.rsvpUrl) items = [{ label: cfg.rsvpLabel || 'RSVP Now', url: cfg.rsvpUrl }];
+        const copy = cfg.ui?.rsvpText || cfg.rsvpText; if (copy) setText('rsvpText', String(copy));
+      }
+      if (items.length) {
+        for (let i = 0; i < items.length; i++) addBtn(btns, items[i].label, items[i].url, i === 0);
+        has = true;
+      }
+      show(wrap, has);
+      return has;
+    }
+
+    function renderVenues(venues) {
+      const grid = $('venueGrid'); if (!grid) return; grid.innerHTML = '';
+      for (const vn of venues) {
+        const card = create('div','card');
+        const labelHtml = vn.label ? `<span class="pill" style="margin-right:.5rem;">${vn.label}</span>` : '';
+        const mapCta = vn.mapCta || 'Open Map';
+        const map = vn.mapUrl ? `<a class="pill" href="${vn.mapUrl}" target="_blank" rel="noopener">${mapCta}</a>` : '';
+        card.innerHTML = `
+          <div class="row">
+            <div>${labelHtml}<strong>${vn.name ?? ''}</strong></div>
+            ${map}
+          </div>
+          <div class="muted" style="margin-top:.4rem;">${vn.address ?? ''}</div>
+          ${vn.notes ? `<div class="muted" style="margin-top:.6rem;">${vn.notes}</div>` : ''}
+        `;
+        grid.appendChild(card);
+      }
+      const title = $('venueTitle'); if (title) title.textContent = venues.length > 1 ? 'Venues' : 'Venue';
+    }
+
+    function renderPhotoShare(cfg) {
+      const url = cfg.photoUpload?.url || cfg.photoUploadUrl; const on = !!url;
+      const wrap = $('photoshare'); const btns = $('photoshareBtns'); if (btns) btns.innerHTML='';
+      if (on) {
+        const copy = cfg.photoUpload?.text || cfg.photoUpload?.description || cfg.ui?.photoshareText || cfg.photoshareText;
+        if (copy) setText('photoshareText', String(copy));
+        addBtn(btns, cfg.photoUpload?.label || cfg.photoUpload?.cta || 'Upload to Album', url, true);
+      }
+      show(wrap, on);
+      return on;
+    }
+
+    function renderRegistry(items) {
+      const wrap = $('registry'); const btns = $('registryBtns'); if (btns) btns.innerHTML='';
+      const on = Array.isArray(items) && items.length > 0;
+      if (on) for (const r of items) addBtn(btns, r.label, r.url);
+      show(wrap, on);
+      return on;
+    }
+
+    function renderFaqs(items) {
+      const wrap = $('faqs'); const grid = $('faqList'); if (grid) grid.innerHTML='';
+      const on = Array.isArray(items) && items.length > 0;
+      if (on) for (const f of items) { const card = create('div','card'); card.innerHTML = `<strong>${f.q}</strong><div class="muted" style="margin-top:.4rem;">${f.a}</div>`; grid.appendChild(card); }
+      show(wrap, on);
+      return on;
+    }
+
+    function populate(cfg) {
+      applyThemeColors(cfg);
+      const title = cfg.ui?.title || cfg.title || cfg.coupleNames; if (title) document.title = title;
+      setText('monogram', cfg.ui?.monogram ?? 'You’re invited');
+      setText('names', cfg.coupleNames ?? 'Our Wedding');
+      setText('dateDisplay', cfg.dateDisplay ?? '');
+      setText('locationShort', cfg.locationShort ?? '');
+      // toggle bullet between date and location
+      const dd = $('dateDisplay'), ls = $('locationShort'); const bullet = dd?.nextElementSibling; const hasBoth = !!dd?.textContent?.trim() && !!ls?.textContent?.trim(); if (bullet) bullet.classList.toggle('hide', !hasBoth);
+      setText('storyText', cfg.story ?? '');
+
+      const hasStory = !!(cfg.story && String(cfg.story).trim()); show($('story'), hasStory);
+  const hasRSVP = renderRSVP(cfg);
+      const hasSchedule = Array.isArray(cfg.schedule) && cfg.schedule.length > 0; if (hasSchedule) renderSchedule(cfg.schedule); show($('schedule'), hasSchedule);
+      const venues = normalizeVenues(cfg); const hasVenue = venues.length > 0; if (hasVenue) renderVenues(venues); show($('venue'), hasVenue);
+      const hasPhoto = renderPhotoShare(cfg);
+      const hasReg = renderRegistry(cfg.registry);
+      const hasFaq = renderFaqs(cfg.faqs);
+  renderTopButtons({ rsvp: hasRSVP, story: hasStory, schedule: hasSchedule, venue: hasVenue, photo: hasPhoto, registry: hasReg, faqs: hasFaq }, venues);
+      setText('footerNote', cfg.ui?.footerNote ?? 'Made with ♥ for family and friends.');
+    }
+
+    // Slideshow
+    async function fetchPhotoList(cfg) {
+      const url = cfg.slideshow?.dynamicPhotosUrl; if (!url) return [];
+      try { const data = await fetchJSON(url + (url.includes('?') ? '&' : '?') + '_ts=' + Date.now()); const list = (Array.isArray(data) ? data : data.files || []).map(s => s.startsWith('/') ? s : `/photos/${s}`); return [...new Set(list)]; } catch { return []; }
+    }
+    async function startSlideshow(cfg) {
+      const bg = $('bg');
+      const intervalMs = cfg.slideshow?.intervalMs ?? 6000;
+      const transitionMs = cfg.slideshow?.transitionMs ?? 1200;
+      const loadTimeoutMs = cfg.slideshow?.imageLoadTimeoutMs ?? 15000;
+      const firstTimeoutMs = cfg.slideshow?.firstImageTimeoutMs ?? loadTimeoutMs;
+
+      let photos = await fetchPhotoList(cfg);
+      if (!photos.length) return; // keep gradient fallback
+
+      const slides = [create('div','bg-slide'), create('div','bg-slide')];
+      slides.forEach(s => { s.style.transitionDuration = transitionMs + 'ms'; bg.appendChild(s); });
+
+      let idx = 0, cur = 0, currentSrc = photos[0];
+
+      // Keep the gradient until the first photo is fully loaded
+      try { await loadImage(currentSrc, firstTimeoutMs); } catch { return; }
+      slides[cur].style.backgroundImage = `url('${currentSrc}')`;
+      slides[cur].classList.add('active');
+      document.body.classList.add('slideshow-on');
+
+      // Slide loop: wait for next image to load before transitioning
+      (async function slideLoop(){
+        while (true) {
+          if (!photos.length) { await wait(intervalMs); continue; }
+          let nextIdx = (idx + 1) % photos.length;
+          let nextSrc = photos[nextIdx];
+
+          try {
+            await loadImage(nextSrc, loadTimeoutMs);
+          } catch {
+            // Skip/remove bad image to avoid blocking; if only one remains, wait and retry later
+            if (photos.length > 1) { photos.splice(nextIdx, 1); continue; }
+            await wait(intervalMs); continue;
+          }
+
+          const next = 1 - cur;
+          slides[next].style.backgroundImage = `url('${nextSrc}')`;
+          slides[next].classList.add('active');
+          slides[cur].classList.remove('active');
+          cur = next; idx = nextIdx; currentSrc = nextSrc;
+
+          await wait(intervalMs);
+        }
+      })();
+
+      // Periodically refresh the photo list without interrupting the current slide
+      const refreshSec = cfg.slideshow?.photoRefreshSeconds ?? 20;
+      (async function refreshLoop(){
+        while (true) {
+          await wait(refreshSec * 1000);
+          try {
+            const fresh = await fetchPhotoList(cfg);
+            if (!Array.isArray(fresh) || fresh.length === 0) continue;
+            // Keep the current photo if it still exists; otherwise reset to start
+            if (fresh.includes(currentSrc)) {
+              photos = fresh.slice();
+              idx = photos.indexOf(currentSrc);
+            } else {
+              photos = fresh.slice();
+              idx = 0;
+              currentSrc = photos[0];
+            }
+          } catch {}
+        }
+      })();
+    }
+
+    // App init
+    (async function init(){
+      try {
+        const cfg = await loadConfig();
+        populate(cfg);
+      // Ensure the display font is available before sizing
+      await waitForFontFamily('Great Vibes', 2500);
+      // Make content measurable before sizing names (names remain hidden)
+      $('content')?.classList.remove('hide');
+      // Now size names and reveal
+      fitNames();
+      revealNamesFallback();
+      // Hooks for future resizes
+      addEventListener('resize', fitNamesDebounced);
+      const inner = document.querySelector('.hero .inner'); if (window.ResizeObserver && inner) new ResizeObserver(() => fitNamesDebounced()).observe(inner);
+      // Start slideshow without blocking UI
+      startSlideshow(cfg);
+      // Hide loading indicator
+      $('loading')?.classList.add('hide');
+      } catch (e) {
+        setText('loading', 'Could not load site details (config.json).');
+        console.error(e);
+      }
+    })();
+  </script>
+</body>
+</html>
