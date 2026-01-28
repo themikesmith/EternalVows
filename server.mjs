@@ -113,20 +113,36 @@ function escapeHtml(s) {
     .replace(/"/g, '&quot;');
 }
 
+function checkPassword() {
+  const input = document.getElementById('password-input');
+  return input.value === "We're SO excited to celebrate with you on 2026-06-20!";
+}
+
 app.get(['/', '/index.html'], async (_req, res) => {
+  const allowed = false;
   try {
-    const [cfg, html] = await Promise.all([
-      getConfig(),
-      readFile(path.join(ROOT, 'index.html'), 'utf8')
-    ]);
-    const meta = buildMeta(cfg || {});
-    const out = injectHead(html, meta);
-    res.set('Cache-Control', 'no-store');
-    res.type('html').send(out);
+    allowed = checkPassword();
   } catch (e) {
-    error('Failed to render index.html dynamically, falling back to static. Error:', e && e.stack ? e.stack : e);
-    res.sendFile(path.join(ROOT, 'index.html'));
+    error('Failed to check passowrd. Error:', e && e.stack ? e.stack : e);
   }
+  try {
+      if (!allowed) {
+        const meta = { "Join us!", "Join us for our wedding celebration." }
+        const html = readFile(path.join(ROOT, 'askauth.html'), 'utf8')
+      } else {
+        const [cfg, html] = await Promise.all([
+          getConfig(),
+          readFile(path.join(ROOT, 'index.html'), 'utf8')
+        ]);
+        const meta = buildMeta(cfg || {});
+      }
+      const out = injectHead(html, meta);
+      res.set('Cache-Control', 'no-store');
+      res.type('html').send(out);
+    } catch (e) {
+      error('Failed to render index.html dynamically, falling back to static. Error:', e && e.stack ? e.stack : e);
+      res.sendFile(path.join(ROOT, 'index.html'));
+    }
 });
 
 // Config endpoint: always emits JSON. Prefers config.json; falls back to config.yaml/yml.
