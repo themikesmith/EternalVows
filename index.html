@@ -176,7 +176,16 @@
     })();
   </script>
   <div class="bg" id="bg"></div>
-  <div id="loading" class="loading">Loading details…</div>
+ <div id="loading" class="loading">
+    Loading details…
+    <div class="modal-content">
+        <h2>Welcome to Our Wedding</h2>
+        <p>This site is for our invited guests only. Please enter the password:</p>
+        <input type="password" id="password-input" placeholder="Enter password" class="password-input">
+        <button onclick="checkPassword()" class="password-button">Enter</button>
+        <p id="error-message"></p>
+    </div>
+  </div>
 
   <div id="content" class="hide">
     <header class="hero">
